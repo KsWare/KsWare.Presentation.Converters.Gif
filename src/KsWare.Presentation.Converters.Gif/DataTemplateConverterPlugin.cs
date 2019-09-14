@@ -1,17 +1,22 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
+using KsWare.Presentation.Interfaces.Plugins.DataTemplateConverter;
 using XamlAnimatedGif;
 
 namespace KsWare.Presentation.Converters.Gif
 {
-	public class DataTemplateConverterPlugin
+	[Export(typeof(IDataTemplateConverterPlugin)), DataTemplateConverterPluginExportMetadata("image/gif")]
+	public sealed class DataTemplateConverterPlugin : IDataTemplateConverterPlugin
 	{
-		public DataTemplate CreateDataTemplate(Uri locationUri)
+		public DataTemplate CreateDataTemplate(object content)
 		{
+			var locationUri = (Uri) content;
+
 			// REQUIRES: PM> Install-Package XamlAnimatedGif
 			// REQUIRES: PM> Install-Package KsWare.XamlAnimatedGif.Wpf.StrongName.1.2.2 (temporary)
 
