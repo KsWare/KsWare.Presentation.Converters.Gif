@@ -5,15 +5,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
-using KsWare.Presentation.Interfaces.Plugins.DataTemplateConverter;
+using KsWare.Presentation.Interfaces.Plugins.TemplateConverter;
 using XamlAnimatedGif;
 
 namespace KsWare.Presentation.Converters.Gif
 {
-	[Export(typeof(IDataTemplateConverterPlugin)), DataTemplateConverterPluginExportMetadata("image/gif")]
-	public sealed class DataTemplateConverterPlugin : IDataTemplateConverterPlugin
+	[Export(typeof(ITemplateConverterPlugin)), TemplateConverterPluginExportMetadata("image/gif")]
+	public sealed class TemplateConverterPlugin : ITemplateConverterPlugin
 	{
-		public DataTemplate CreateDataTemplate(object content)
+		public object CreateTemplate(object content)
 		{
 			var locationUri = (Uri) content;
 
