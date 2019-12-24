@@ -16,6 +16,7 @@
     <RepositoryUrl>https://github.com/KsWare/KsWare.Presentation.Converters.Gif</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>GIF converter plugin KsWare Presentation</PackageTags>
+    <PackageProjectUrl>https://github.com/KsWare/KsWare.Presentation.Converters.Gif</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="KsWare.Presentation.Interfaces" Version="0.1.34" />
