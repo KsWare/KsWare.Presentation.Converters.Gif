@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
-using KsWare.Presentation.Interfaces.Plugins.TemplateConverter;
+using KsWare.Presentation.Interfaces.Plugins.ResourceConverter;
 using XamlAnimatedGif;
 
 // AnimationBehavior.SetSourceUri REQUIRES: PM> Install-Package XamlAnimatedGif
@@ -13,10 +14,20 @@ using XamlAnimatedGif;
 
 namespace KsWare.Presentation.Converters.Gif {
 
-	[Export(typeof(ITemplateConverterPlugin)), TemplateConverterPluginExportMetadata("image/gif")]
-	public sealed class TemplateConverterPlugin : ITemplateConverterPlugin {
+	[Export(typeof(IResourceConverterPlugin)), ResourceConverterPluginExportMetadata("image/gif")]
+	public sealed class ResourceConverterPlugin : IResourceConverterPlugin {
 
-		public DataTemplate CreateDataTemplate(object content) {
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+			if (typeof(DataTemplate).IsAssignableFrom(targetType)) return CreateDataTemplate(value);
+			if (typeof(ControlTemplate).IsAssignableFrom(targetType)) return CreateControlTemplate(value);
+			throw new NotImplementedException("Conversion not supported.");
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+			throw new NotImplementedException();
+		}
+
+		private DataTemplate CreateDataTemplate(object content) {
 			var locationUri = (Uri) content;
 			AnimationBehavior.SetSourceUri(new Image(), new Uri("pack://application,,,")); //WORKAROUND
 
@@ -30,7 +41,7 @@ namespace KsWare.Presentation.Converters.Gif {
 			return (DataTemplate) XamlReader.Load(xr);
 		}
 
-		public ControlTemplate CreateControlTemplate(object content) {
+		private ControlTemplate CreateControlTemplate(object content) {
 			var locationUri = (Uri) content;
 			AnimationBehavior.SetSourceUri(new Image(), new Uri("pack://application,,,")); //WORKAROUND
 
@@ -43,7 +54,6 @@ namespace KsWare.Presentation.Converters.Gif {
 			var xr = XmlReader.Create(sr);
 			return (ControlTemplate) XamlReader.Load(xr);
 		}
-
 	}
 
 }

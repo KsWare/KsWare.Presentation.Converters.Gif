@@ -19,7 +19,7 @@
     <PackageProjectUrl>https://github.com/KsWare/KsWare.Presentation.Converters.Gif</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="KsWare.Presentation.Interfaces" Version="0.1.34" />
+    <PackageReference Include="KsWare.Presentation.Interfaces" Version="0.1.40" />
     <PackageReference Include="KsWare.XamlAnimatedGif.Wpf.StrongName" Version="1.2.2.24" />
   </ItemGroup>
 </Project>
